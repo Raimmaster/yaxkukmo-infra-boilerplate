@@ -115,13 +115,6 @@ resource "aws_lb_target_group" "web_app_tg" {
   target_type = "instance"
 }
 
-resource "aws_lb_target_group_attachment" "web_app_tg_attachment" {
-  count            = var.amount_of_instances
-  target_group_arn = aws_lb_target_group.web_app_tg.arn
-  target_id        = aws_instance.web_app[count.index].id
-  port             = 80
-}
-
 resource "aws_lb_listener" "web_app_listener" {
   load_balancer_arn = aws_lb.web_app_lb.arn
   port              = "443"
