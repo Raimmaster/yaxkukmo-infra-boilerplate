@@ -152,26 +152,6 @@ resource "aws_lb_listener" "web_app_listener_redirect_http_to_https" {
   }
 }
 
-resource "aws_instance" "web_app" {
-  count             = 0
-  ami               = data.aws_ami.ubuntu_yaxkukmo.id
-  availability_zone = var.availability_zones[count.index]
-  instance_type     = "t3.micro"
-  subnet_id         = var.private_subnets[count.index]
-
-  root_block_device {
-    encrypted = "true"
-  }
-
-  vpc_security_group_ids = [aws_security_group.allow_internet_access_sg.id]
-  key_name               = aws_key_pair.instance_creation_key.key_name
-  tags = {
-    Name      = "yaxkukmo-web-app-${count.index + 1}"
-    Terraform = "true"
-    Project   = "web-app"
-  }
-}
-
 module "autoscaler" {
 
   source  = "terraform-aws-modules/autoscaling/aws"
