@@ -14,6 +14,6 @@ module "vpc" {
   tags = {
     Terraform   = "true"
     Environment = "dev"
-    Project     = "test-lb"
+    Project     = "yaxkukmo"
   }
 }
