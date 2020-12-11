@@ -1,0 +1,17 @@
+[Unit]
+Description=Yaxkukmo Web App
+After=docker.service
+Requires=docker.service
+
+[Service]
+SyslogIdentifier=Yaxkukmo-Web-App
+ExecStart=/usr/local/bin/docker-compose -f /home/ubuntu/docker-compose.yml up -d
+ExecStop=/usr/local/bin/docker-compose -f /home/ubuntu/docker-compose.yml down
+
+Restart=always
+RestartSec=10s
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
