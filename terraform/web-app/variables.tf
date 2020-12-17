@@ -15,7 +15,7 @@ variable "public_subnets" {
 }
 
 variable "amount_of_instances" {
-  default = 0
+  default = 2
 }
 
 variable "domain" {
