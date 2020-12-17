@@ -1,0 +1,4 @@
+web-app:
+  image: nginx:alpine
+  ports:
+   - "80:80"

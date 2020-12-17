@@ -1,0 +1,60 @@
+{
+    "builders": [{
+        "type": "amazon-ebs",
+        "profile": "terraform-local",
+        "region": "us-east-1",
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*",
+                "root-device-type": "ebs"
+            },
+            "owners": ["099720109477"],
+            "most_recent": true
+        },
+        "force_deregister": "true",
+        "force_delete_snapshot": "true",
+        "instance_type": "t3.micro",
+        "ssh_username": "ubuntu",
+        "ami_name": "yaxkukmo-web-app-v1",
+        "run_tags": {
+            "OS_Version": "Ubuntu",
+            "Release": "Latest",
+            "Base_AMI_Name": "{{ .SourceAMIName }}",
+            "Extra": "{{ .SourceAMITags.TagName }}",
+            "Scope": "web-app"
+        },
+        "tags": {
+            "OS_Version": "Ubuntu",
+            "Release": "Latest",
+            "Base_AMI_Name": "{{ .SourceAMIName }}",
+            "Extra": "{{ .SourceAMITags.TagName }}",
+            "Scope": "web-app",
+            "Name": "yaxkukmo-web-app"
+        },
+        "snapshot_tags": {
+            "OS_Version": "Ubuntu",
+            "Release": "Latest",
+            "Base_AMI_Name": "{{ .SourceAMIName }}",
+            "Extra": "{{ .SourceAMITags.TagName }}",
+            "Scope": "web-app",
+            "Name": "yaxkukmo-web-app"
+        }
+    }],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "./yaxkukmo.service",
+            "destination": "/tmp/yaxkukmo.service"
+        },
+        {
+            "type": "file",
+            "source": "./docker-compose.yml",
+            "destination": "/tmp/docker-compose.yml"
+        },
+        {
+            "type": "shell",
+            "script": "./setup.sh"
+        }
+    ]
+}
