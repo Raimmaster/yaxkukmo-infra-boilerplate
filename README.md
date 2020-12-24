@@ -1,4 +1,4 @@
-# Yaxkukmo Terraform Packer Boilerplate
+# Yaxkukmo Infra Boilerplate
 
 ## Dependencies
 
